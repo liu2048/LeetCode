@@ -1,9 +1,9 @@
 public class Solution {
     public int search(int[] nums, int target) {
-        if (nums == null || nums.length == 0) return -1;
+        if (nums == null || nums.length == 0) return -1; // can be ignored if "left <= right" in the following while-loop
         int left = 0;
         int right = nums.length - 1;
-        while (left < right){
+        while (left < right){ // left <= right is also fine
             int mid = (left + right) / 2;
             if (nums[mid] == target) return mid;
             if (nums[left] <= nums[mid]){
@@ -23,7 +23,7 @@ public class Solution {
                 }
             }
         }
-        if (nums[left] == target) return left; // left = right
+        if (nums[left] == target) return left; // can be ignored if "left <= right"
         return -1;
     }
 }
