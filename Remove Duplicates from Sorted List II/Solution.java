@@ -9,22 +9,20 @@
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode dummy = new ListNode(0);
-        dummy.next = head;
         ListNode p = dummy;
         ListNode q = head;
+        dummy.next = head;
         while (q != null && q.next != null){
             if (q.val == q.next.val){
                 int val = q.val;
-                while (q != null && q.val == val){
-                    p.next = q.next;
-                    q = q.next;
-                }
-            }
-            else {
+                while (q != null && val == q.val) q = q.next;
                 p.next = q;
-                p = p.next;
+            }
+            else{
+                p = q;
                 q = q.next;
             }
+            
         }
         return dummy.next;
     }
