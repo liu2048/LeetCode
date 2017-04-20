@@ -12,10 +12,10 @@ public class Solution {
         dummy.next = head;
         
         // find the node just before the start point of reverse
-        ListNode a = dummy;
-        for (int i = 1; i < m; i++) a = a.next;
+        ListNode pre_start = dummy;
+        for (int i = 1; i < m; i++) pre_start = pre_start.next;
         
-        ListNode start = a.next;
+        ListNode start = pre_start.next;
         
         // procedure of reverse a list: three pointers: prev, p, q;
         ListNode pre = null;
@@ -26,9 +26,11 @@ public class Solution {
             p = q;
             q = q.next;
         }
+        
+        // after the loop, p.next is not pre
         // don't forget that p doesn't point to pre after the loops: q is null or out of reversed range
         p.next = pre;
-        a.next = p;
+        pre_start.next = p;
         start.next = q;
         return dummy.next;
     }
