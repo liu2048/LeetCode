@@ -15,15 +15,21 @@ public class Solution {
         q.offer(root);
         while (!q.isEmpty()){
             int size = q.size();
-            List<Integer> level = new LinkedList<>();
+            List<Integer> list = new LinkedList<>();
             for (int i = 0; i < size; i++){
                 TreeNode head = q.poll();
-                level.add(head.val);
-                if (head.left != null) q.offer(head.left);
-                if (head.right!= null) q.offer(head.right);
+                TreeNode left = head.left;
+                TreeNode right = head.right;
+                list.add(head.val);
+                if (left != null){
+                    q.offer(left);
+                }
+                if (right != null) {
+                    q.offer(right);
+                }
             }
-            rst.add(0, level);
-        }        
+            rst.add(0, list);
+        }
         return rst;
     }
 }

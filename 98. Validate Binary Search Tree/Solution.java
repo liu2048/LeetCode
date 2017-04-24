@@ -11,17 +11,19 @@
 // solution 1, inorder traversal, without generating a list
 public class Solution {
     public boolean isValidBST(TreeNode root) {
-        TreeNode p = root, pre = null;
         Stack<TreeNode> st = new Stack<>();
-        while (p != null || !st.isEmpty()){
-            while (p != null){
-                st.push(p);
-                p = p.left;
+        TreeNode pre = null, cur = root;
+        while (cur != null || !st.isEmpty()){
+            while (cur != null){
+                st.push(cur);
+                cur = cur.left;
             }
-            TreeNode cur = st.pop();
-            if (pre != null && pre.val >= cur.val) return false;
-            pre = cur;
-            p = cur.right;
+            TreeNode top = st.pop();
+            if (pre != null && pre.val >= top.val) {
+                return false;
+            }
+            pre = top;
+            cur = top.right;
         }
         return true;
     }
