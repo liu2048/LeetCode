@@ -8,7 +8,27 @@
  * }
  */
  
-// solution 1, use in-order traversal, get a increasing list
+// solution 1, inorder traversal, without generating a list
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        TreeNode p = root, pre = null;
+        Stack<TreeNode> st = new Stack<>();
+        while (p != null || !st.isEmpty()){
+            while (p != null){
+                st.push(p);
+                p = p.left;
+            }
+            TreeNode cur = st.pop();
+            if (pre != null && pre.val >= cur.val) return false;
+            pre = cur;
+            p = cur.right;
+        }
+        return true;
+    }
+}
+ 
+ 
+// solution 2, use in-order traversal, get a increasing list
 public class Solution {
     Stack<Integer> rst = new Stack<>();
     public boolean isValidBST(TreeNode root) {
@@ -39,7 +59,7 @@ public class Solution {
     }
 }
 
-// solution 2
+// solution 3
 public class Solution {
     TreeNode pre = null;
     public boolean isValidBST(TreeNode root) {
