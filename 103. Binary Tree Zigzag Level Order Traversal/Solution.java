@@ -17,24 +17,32 @@ public class Solution {
         boolean normal = true;
         curLevel.push(root);
         while (!curLevel.isEmpty()){
-            TreeNode cur = curLevel.pop();
-            vals.add(cur.val);
-            if (normal){
-                if (cur.left != null) nxtLevel.push(cur.left);
-                if (cur.right != null) nxtLevel.push(cur.right);
+            int size = curLevel.size();
+            for (int i = 0; i < size; i++){
+                TreeNode cur = curLevel.pop();
+                vals.add(cur.val);
+                if (normal){
+                    if (cur.left != null) {
+                        nxtLevel.push(cur.left);
+                    }
+                    if (cur.right != null) {
+                        nxtLevel.push(cur.right);
+                    }
+                }
+                else {
+                    if (cur.right != null) {
+                        nxtLevel.push(cur.right);
+                    }
+                    if (cur.left != null) {
+                        nxtLevel.push(cur.left);
+                    }
+                }
             }
-            else {
-                if (cur.right != null) nxtLevel.push(cur.right);
-                if (cur.left != null) nxtLevel.push(cur.left);
-            }
-            
-            if (curLevel.isEmpty()){
-                normal = !normal;
-                rst.add(vals);
-                curLevel = nxtLevel;
-                vals = new LinkedList<>();
-                nxtLevel = new Stack<>();
-            }
+            normal = !normal;
+            rst.add(vals);
+            curLevel = nxtLevel;
+            vals = new LinkedList<>();
+            nxtLevel = new Stack<>();
         }
         return rst;
     }
