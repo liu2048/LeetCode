@@ -7,6 +7,26 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ // preorder traversal
+ public class Solution {
+    public void flatten(TreeNode root) {
+        if (root == null) return;
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode pre = root;
+        if (pre.right != null) st.push(pre.right);
+        if (pre.left != null) st.push(pre.left);
+        while (!st.isEmpty()){
+            TreeNode cur = st.pop();
+            if (cur.right != null) st.push(cur.right);
+            if (cur.left != null) st.push(cur.left);
+            pre.left = null;
+            pre.right = cur;
+            pre = cur;
+        }
+    }
+} 
+ 
+// with a queue
 public class Solution {
     public void flatten(TreeNode root) {
         if (root == null) return;
