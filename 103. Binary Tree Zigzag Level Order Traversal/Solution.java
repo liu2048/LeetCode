@@ -10,39 +10,40 @@
 public class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> rst = new LinkedList<>();
-        if (root == null) return rst;
-        List<Integer> vals = new LinkedList<>();
-        Stack<TreeNode> curLevel = new Stack<>();
-        Stack<TreeNode> nxtLevel = new Stack<>();
-        boolean normal = true;
-        curLevel.push(root);
-        while (!curLevel.isEmpty()){
-            int size = curLevel.size();
-            for (int i = 0; i < size; i++){
-                TreeNode cur = curLevel.pop();
-                vals.add(cur.val);
-                if (normal){
-                    if (cur.left != null) {
-                        nxtLevel.push(cur.left);
-                    }
-                    if (cur.right != null) {
-                        nxtLevel.push(cur.right);
-                    }
+        if (root == null) {
+            return rst;
+        }
+        Stack<TreeNode> cur = new Stack<>();
+        Stack<TreeNode> nxt = new Stack<>();
+        List<Integer> list = new LinkedList<>();
+        boolean normalOrder = true;
+        cur.push(root);
+        while (!cur.isEmpty()){
+            TreeNode top = cur.pop();
+            list.add(top.val);
+            if (normalOrder){
+                if (top.left != null){
+                    nxt.push(top.left);
                 }
-                else {
-                    if (cur.right != null) {
-                        nxtLevel.push(cur.right);
-                    }
-                    if (cur.left != null) {
-                        nxtLevel.push(cur.left);
-                    }
+                if (top.right != null){
+                    nxt.push(top.right);
                 }
             }
-            normal = !normal;
-            rst.add(vals);
-            curLevel = nxtLevel;
-            vals = new LinkedList<>();
-            nxtLevel = new Stack<>();
+            else {
+                if (top.right != null){
+                    nxt.push(top.right);
+                }
+                if (top.left != null){
+                    nxt.push(top.left);
+                }
+            }
+            if (cur.isEmpty()){
+                normalOrder = !normalOrder;
+                rst.add(list);
+                list = new LinkedList<>();
+                cur = nxt;
+                nxt = new Stack<>();
+            }
         }
         return rst;
     }
