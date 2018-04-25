@@ -7,43 +7,34 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> rst = new LinkedList<>();
-        if (root == null) {
-            return rst;
-        }
-        Stack<TreeNode> cur = new Stack<>();
-        Stack<TreeNode> nxt = new Stack<>();
-        List<Integer> list = new LinkedList<>();
-        boolean normalOrder = true;
-        cur.push(root);
-        while (!cur.isEmpty()){
-            TreeNode top = cur.pop();
-            list.add(top.val);
-            if (normalOrder){
-                if (top.left != null){
-                    nxt.push(top.left);
-                }
-                if (top.right != null){
-                    nxt.push(top.right);
-                }
+        if (root == null) return rst;
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        boolean order = true;
+        while (!st.isEmpty()) {
+            int size = st.size();
+            Stack<TreeNode> next = new Stack<>();
+            List<Integer> list = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode head = st.pop();
+                list.add(head.val);
+                TreeNode left = head.left;
+                TreeNode right = head.right;
+                if (order) {
+                    if (left != null) next.push(left);
+                    if (right != null) next.push(right);
+                    
+                } else {
+                    if (right != null) next.push(right);  
+                    if (left != null) next.push(left);                              
+                }    
             }
-            else {
-                if (top.right != null){
-                    nxt.push(top.right);
-                }
-                if (top.left != null){
-                    nxt.push(top.left);
-                }
-            }
-            if (cur.isEmpty()){
-                normalOrder = !normalOrder;
-                rst.add(list);
-                list = new LinkedList<>();
-                cur = nxt;
-                nxt = new Stack<>();
-            }
+            st = next;
+            rst.add(list);
+            order = !order;            
         }
         return rst;
     }
