@@ -7,7 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
         
