@@ -7,19 +7,18 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
     public boolean isBalanced(TreeNode root) {
-        return maxDepth(root) != -1;
+        if (depth(root) == -1) return false;
+        return true;
     }
-    private int maxDepth(TreeNode node){
-        if (node == null) {
-            return 0;
-        }
-        int left = maxDepth(node.left);
-        int right = maxDepth(node.right);
-        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
-            return -1;
-        }
-        return 1 + Math.max(left, right);
+    public int depth(TreeNode node) {
+        // return -1 if not balancde
+        if (node == null) return 0;
+        int l_depth = depth(node.left);
+        int r_depth = depth(node.right);
+        if (l_depth == -1 || r_depth == -1) return -1;
+        if (Math.abs(l_depth - r_depth) > 1) return -1;
+        return Math.max(l_depth, r_depth) + 1;
     }
 }
