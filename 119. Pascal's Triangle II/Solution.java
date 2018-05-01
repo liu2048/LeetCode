@@ -1,16 +1,17 @@
-public class Solution {
+class Solution {
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> rst = new ArrayList<>();
-        if (rowIndex < 0) return rst;
-        rst.add(1);
-        for (int i = 1; i <= rowIndex; i++){
-            for (int j = rst.size() - 1; j > 0; j--){
-                rst.set(j, rst.get(j) + rst.get(j-1));
-            }
-            rst.add(1);
+        int[] row = new int[rowIndex+1];
+        row[0] = 1;        
+        for (int i = 1; i <= rowIndex; i++) {           
+            for (int j = i-1; j > 0; j--) {                
+                row[j] = row[j] + row[j-1];                
+            }      
+            row[i] = 1;            
         }
-        return rst;
+        List<Integer> list = new LinkedList<>();
+        for (int i : row) {
+            list.add(i);
+        }
+        return list;        
     }
 }
-
-// List.set(index, value);
