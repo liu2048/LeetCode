@@ -1,33 +1,38 @@
-public class Solution {
-    char[][] board;
+class Solution {
+    char[][] board;    
+    String word;    
     int m, n;
-    String word;
+    boolean[][] visited;
     int len;
-    boolean[][] used;
     public boolean exist(char[][] board, String word) {
+        this.board = board;
+        this.word = word;        
         this.m = board.length;
         this.n = board[0].length;
-        this.board = board;
-        this.word = word;
+        this.visited = new boolean[m][n];
         this.len = word.length();
-        this.used = new boolean[m][n];
-        for (int i = 0; i < m; i++){
-            for (int j = 0; j < n; j++){
-                if (dfs(0, i, j)) return true;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dfs(i, j, 0)) {
+                    return true;
+                }
             }
         }
         return false;
     }
-    private boolean dfs(int index, int x, int y){
-        if (index == len) return true;
-        if (x < 0 || y < 0) return false;
-        if (x >= m || y >= n) return false;
-        if (used[x][y]) return false;
-        if (board[x][y] != word.charAt(index)) return false;
-        // (board[x][y] == word.charAt(index))
-        used[x][y] = true;
-        boolean boo = dfs(index+1, x-1, y) || dfs(index+1, x+1, y) || dfs(index+1, x, y-1) || dfs(index+1, x, y+1);
-        used[x][y] = false; // forget this step 
-        return boo;
+    
+    public boolean dfs(int x, int y, int index) {
+        if (index == len ) return true;        
+        if (x < 0 || x > m-1 || y < 0 || y > n-1) return false;
+        if (visited[x][y]) return false;
+        if (board[x][y] != word.charAt(index)) return false;     
+        
+        index++;
+        visited[x][y] = true;        
+        boolean rst = dfs(x-1, y, index) || dfs(x+1, y, index) || dfs(x, y-1, index) || dfs(x, y+1, index);
+        visited[x][y] = false;
+        
+        return rst;
     }
 }
