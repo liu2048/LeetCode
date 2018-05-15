@@ -10,23 +10,17 @@
 class Solution {
     int global;
     public int sumNumbers(TreeNode root) {
-        if (root == null) return 0;
         this.global = 0;
-        dfs(root, 0);        
-        return global;
+        dfs(root, 0);
+        return this.global;
     }
-    public void dfs(TreeNode node, int num) {   
-        int curNum = num*10 + node.val;
-        TreeNode left = node.left;
-        TreeNode right = node.right;        
-        if (left == null && right == null) {
-            global += curNum;
-        }        
-        if (left != null) {
-            dfs(left, curNum);
+    public void dfs(TreeNode root, int sum) {
+        if (root == null) return;
+        int local = root.val + sum*10;
+        if (root.left == null && root.right == null) {
+            this.global += local;
         }
-        if (right != null) {
-            dfs(right, curNum);
-        }
+        dfs(root.left, local);
+        dfs(root.right, local);
     }
 }
