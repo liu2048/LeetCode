@@ -1,32 +1,26 @@
 class MinStack {
-    Stack<Integer> st, minSt;
-    int curMin;
+    private Stack<Integer> st;
+    private Stack<Integer> minSt = new Stack<>();
 
     /** initialize your data structure here. */
     public MinStack() {
-        st = new Stack<>();
-        minSt = new Stack<>();
-        curMin = 0;
+        this.st = new Stack<>();
+        this.minSt = new Stack<>();
     }
     
     public void push(int x) {
         st.push(x);
-        if (!minSt.isEmpty()) { 
-            if (x < curMin) {
-                curMin = x;  
-            }             
+        if (minSt.isEmpty()) {
+            minSt.push(x);
         } else {
-            curMin = x;                                  
-        } 
-        minSt.push(curMin); 
+            int min = minSt.peek();
+            minSt.push(Math.min(min, x));
+        }        
     }
     
     public void pop() {
         st.pop();
         minSt.pop();
-        if (!minSt.isEmpty()) {
-            curMin = minSt.peek();
-        }        
     }
     
     public int top() {
@@ -34,7 +28,7 @@ class MinStack {
     }
     
     public int getMin() {
-        return curMin;
+        return minSt.peek();
     }
 }
 
