@@ -6,37 +6,23 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode p = l1, q = l2, dummy = new ListNode(0), cur = dummy;
+        ListNode dummy = new ListNode(0);
+        ListNode p = l1, q = l2, cur = dummy;
         int carry = 0;
-        while (p != null && q != null){
-            int x = p.val;
-            int y = q.val;
-            
-            int sum = x + y + carry;
+        while (p != null || q != null) {
+            int x = p == null ? 0 : p.val;
+            int y = q == null ? 0 : q.val;
+            int sum = carry + x + y;
             int digit = sum % 10;
             carry = sum / 10;
             cur.next = new ListNode(digit);
-            cur = cur.next;
-            p = p.next;
-            q = q.next;
+            cur  = cur.next;
+            if (p != null) p = p.next;
+            if (q != null) q = q.next;
         }
-        
-        if (p == null) p = q;
-        
-        while (p != null){
-            int x = p.val;
-            int sum = x + carry;
-            int digit = sum % 10;
-            carry = sum / 10;
-            cur.next = new ListNode(digit);
-            cur = cur.next;
-            p = p.next;
-        }
-        
-        if (carry != 0) cur.next = new ListNode(carry);
-        
+        if (carry == 1) cur.next = new ListNode(1);
         return dummy.next;
     }
 }
