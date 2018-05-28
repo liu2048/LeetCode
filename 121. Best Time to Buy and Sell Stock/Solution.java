@@ -1,17 +1,16 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int len = prices.length;        
-        if (len < 2) return 0;                
-        int global = 0;
-        int low = prices[0];
+        if (prices.length == 0) return 0;
+        int globalMaxDiff = 0;
+        int localMinPrice = prices[0];
         for (int price : prices) {
-            int diff = price - low;
+            int diff = price - localMinPrice;
             if (diff < 0) {
-                low = price;
-            } else if (diff > global) {
-                global = price - low;                
-            }            
+                localMinPrice = price;
+            } else if (diff > globalMaxDiff) {
+                globalMaxDiff = diff;
+            }
         }
-        return global;
+        return globalMaxDiff;
     }
 }
