@@ -13,8 +13,9 @@ class Solution {
             }
         }
         StringBuilder[] buckets = new StringBuilder[maxFre + 1];
-        for (Character c : map.keySet()) {
-            int fre = map.get(c);
+        for (Map.Entry<Character, Integer> e : map.entrySet()) {
+            char c = e.getKey();
+            int fre = e.getValue();
             if (buckets[fre] == null) {
                 buckets[fre] = new StringBuilder();
             }
